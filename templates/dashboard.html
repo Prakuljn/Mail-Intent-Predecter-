@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Classification Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; }
+        th, td { padding: 12px; border: 1px solid #ccc; text-align: left; vertical-align: top; }
+        th { background: #eee; }
+        .confidence { font-weight: bold; }
+        .intent { background: #e3f2fd; padding: 4px 8px; border-radius: 5px; display: inline-block; margin: 2px 0; }
+    </style>
+</head>
+<body>
+    <h1>Email Classification Dashboard</h1>
+    <table>
+        <tr>
+            <th>Sender</th>
+            <th>Subject</th>
+            <th>Body</th>
+            <th>Predicted Intents</th>
+            <th>Reply</th>
+            <th>Received</th>
+        </tr>
+        {% for email in emails %}
+        <tr>
+            <td>{{ email.sender }}</td>
+            <td>{{ email.subject }}</td>
+            <td>{{ email.body[:80] }}{% if email.body|length > 80 %}...{% endif %}</td>
+            <td>
+                {% if email.predictions %}
+                    {% for prediction in email.predictions %}
+                        <div class="intent">{{ prediction.intent }} — <span class="confidence">{{ (prediction.score * 100) | round(2) }}%</span></div>
+                    {% endfor %}
+                {% else %}
+                    No predictions
+                {% endif %}
+            </td>
+            <td>{{ email.reply[:60] }}{% if email.reply|length > 60 %}...{% endif %}</td>
+            <td>{{ email.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
