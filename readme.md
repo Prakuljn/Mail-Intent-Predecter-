@@ -62,8 +62,8 @@ This file reads the variables from `.env`. You can also change the `CHECK_INTERV
 
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repo-url>
-    cd mail-configuration
+    git clone https://github.com/Prakuljn/Mail-Intent-Predecter-.git
+    cd Mail-Intent-Predecter-
     ```
 
 2.  **Create a virtual environment and activate it:**
